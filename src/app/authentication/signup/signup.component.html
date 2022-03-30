@@ -15,5 +15,8 @@
     <input formControlName="passwordConfirmation" type="password"/>
   </div>
   {{authenticationForm.controls['passwordConfirmation'].errors|json}}
+  <br/>
   <button class="ui submit button primary">Submit</button>
+  <br/>
+  {{authenticationForm.errors|json}}
 </form>
