@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
-import { SiginComponent } from './sigin/sigin.component';
+import { SigninComponent } from './sigin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 
 
 @NgModule({
   declarations: [
-    SiginComponent,
+    SigninComponent,
     SignupComponent
   ],
   imports: [
