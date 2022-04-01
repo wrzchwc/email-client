@@ -1,17 +1,20 @@
 <h3>Create an Account</h3>
 <form [formGroup]="authenticationForm" class="ui form">
-  <app-input [control]="$any(authenticationForm).controls['username']" label="username"></app-input>
-  <div class="field">
-    <label>password</label>
-    <input formControlName="password" type="password"/>
-  </div>
-  {{authenticationForm.controls['password'].errors|json}}
-  <div class="field">
-    <label>confirm password</label>
-    <input formControlName="passwordConfirmation" type="password"/>
-  </div>
-  {{authenticationForm.controls['passwordConfirmation'].errors|json}}
-  <br/>
+  <app-input
+    [control]="authenticationForm.controls['username']"
+    label="username"
+    inputType="text"
+  ></app-input>
+  <app-input
+    [control]="authenticationForm.controls['password']"
+    label="password"
+    inputType="password"
+  ></app-input>
+  <app-input
+    [control]="authenticationForm.controls['passwordConfirmation']"
+    label="password confirmation"
+    inputType="password"
+  ></app-input>
   <button class="ui submit button primary">Submit</button>
   <br/>
   {{authenticationForm.errors|json}}
