@@ -15,7 +15,16 @@
     label="password confirmation"
     inputType="password"
   ></app-input>
-  <button class="ui submit button primary">Submit</button>
-  <br/>
-  {{authenticationForm.errors|json}}
+  <div
+    *ngIf="
+    authenticationForm.controls['password'].touched &&
+    authenticationForm.controls['passwordConfirmation'].touched&&
+    authenticationForm.errors"
+    class="ui red basic label"
+  >
+    <p *ngIf="!authenticationForm.errors['passwordsMatch']">Passwords must match!</p>
+  </div>
+  <div>
+    <button class="ui submit button primary">Submit</button>
+  </div>
 </form>

@@ -1,0 +1,8 @@
+.basic.label,
+button {
+  margin-bottom: 0.5em;
+}
+
+button.ui.submit.button.primary{
+  margin: 0 1.714px 6px 1.714px;
+}
