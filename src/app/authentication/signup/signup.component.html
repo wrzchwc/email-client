@@ -1,10 +1,6 @@
 <h3>Create an Account</h3>
 <form [formGroup]="authenticationForm" class="ui form">
-  <div class="field">
-    <label>username</label>
-    <input formControlName="username"/>
-  </div>
-  {{authenticationForm.controls['username'].errors|json}}
+  <app-input [control]="$any(authenticationForm).controls['username']" label="username"></app-input>
   <div class="field">
     <label>password</label>
     <input formControlName="password" type="password"/>

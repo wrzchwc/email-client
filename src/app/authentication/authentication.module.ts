@@ -1,10 +1,11 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "../shared/shared.module";
 
-import { AuthenticationRoutingModule } from './authentication-routing.module';
-import { SigninComponent } from './signin/signin.component';
-import { SignupComponent } from './signup/signup.component';
+import {AuthenticationRoutingModule} from './authentication-routing.module';
+import {SigninComponent} from './signin/signin.component';
+import {SignupComponent} from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,9 @@ import { SignupComponent } from './signup/signup.component';
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
-export class AuthenticationModule { }
+export class AuthenticationModule {
+}
