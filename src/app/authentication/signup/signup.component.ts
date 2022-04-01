@@ -4,6 +4,7 @@ import {FormControl} from "@angular/forms";
 import {Validators} from "@angular/forms";
 import {MatchPassword} from "../validators/match-password";
 import {UniqueUsername} from "../validators/unique-username";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-signup',
@@ -36,7 +37,14 @@ export class SignupComponent {
 
   constructor(
     private matchPassword: MatchPassword,
-    private uniqueUsername: UniqueUsername
+    private uniqueUsername: UniqueUsername,
+    private authenticationService: AuthenticationService
   ) {
+  }
+
+  onSubmit() {
+    if (this.authenticationForm.invalid) return;
+    this.authenticationService.signup(this.authenticationForm.value)
+      .subscribe((response) => console.log(response));
   }
 }
