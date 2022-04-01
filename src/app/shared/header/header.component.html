@@ -1,11 +1,11 @@
 <div class="ui secondary pointing menu">
   <a routerLink="/" class="item">Email Client</a>
   <div class="right menu">
-    <ng-container *ngIf="!signedIn">
+    <ng-container *ngIf="!(signedIn$|async)">
       <a class="ui item" routerLink="/" routerLinkActive="active">Sign in</a>
       <a class="ui item" routerLink="/signup" routerLinkActive="active">Sign up</a>
     </ng-container>
-    <ng-container *ngIf="signedIn">
+    <ng-container *ngIf="signedIn$|async">
       <a class="ui item" routerLink="/inbox" routerLinkActive="active">Inbox</a>
       <a class="ui item" routerLink="/signout" routerLinkActive="active">Sign out</a>
     </ng-container>
