@@ -2,7 +2,7 @@
   <a routerLink="/" class="item">Email Client</a>
   <div class="right menu">
     <ng-container *ngIf="!(signedIn$|async)">
-      <a class="ui item" routerLink="/" routerLinkActive="active">Sign in</a>
+      <a class="ui item" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Sign in</a>
       <a class="ui item" routerLink="/signup" routerLinkActive="active">Sign up</a>
     </ng-container>
     <ng-container *ngIf="signedIn$|async">
