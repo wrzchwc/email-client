@@ -3,12 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {SignupCredentials} from "./interfaces/signup-credentials";
 import {SignupResponse} from "./interfaces/signup-response";
 import {UsernameAvailable} from "./interfaces/username-available";
+import {BehaviorSubject, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
   rootUrl = 'https://api.angular-email.com';
+  signedIn$ = new BehaviorSubject(false);
 
   constructor(private httpClient: HttpClient) {
   }
@@ -20,10 +22,16 @@ export class AuthenticationService {
   }
 
   signup(credentials: SignupCredentials) {
-    return this.httpClient.post<SignupResponse>(`${this.rootUrl}/auth/signup`, {
-      username: credentials.username,
-      password: credentials.password,
-      passwordConfirmation: credentials.passwordConfirmation
-    })
+    return this.httpClient
+      .post<SignupResponse>(`${this.rootUrl}/auth/signup`, {
+        username: credentials.username,
+        password: credentials.password,
+        passwordConfirmation: credentials.passwordConfirmation
+      })
+      .pipe(
+        tap(()=>{
+          this.signedIn$.next(true);
+        })
+      )
   }
 }
