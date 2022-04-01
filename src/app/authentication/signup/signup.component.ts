@@ -45,6 +45,13 @@ export class SignupComponent {
   onSubmit() {
     if (this.authenticationForm.invalid) return;
     this.authenticationService.signup(this.authenticationForm.value)
-      .subscribe((response) => console.log(response));
+      .subscribe({
+        next: (response) => {
+          //Navigation
+        },
+        error: (err) => {
+          this.authenticationForm.setErrors(!err.status ? {noConnection: true} : {unknownError: true})
+        }
+      });
   }
 }

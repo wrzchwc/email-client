@@ -22,7 +22,8 @@
     authenticationForm.errors"
     class="ui red basic label"
   >
-    <p *ngIf="!authenticationForm.errors['passwordsMatch']">Passwords must match!</p>
+    <p *ngIf="authenticationForm.errors['passwordsMatch']">Passwords must match!</p>
+    <p *ngIf="authenticationForm.errors['noConnection']">No internet connection!</p>
   </div>
   <div>
     <button class="ui submit button primary">Submit</button>
