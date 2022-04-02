@@ -5,6 +5,7 @@ import {SignupResponse} from "./interfaces/signup-response";
 import {UsernameAvailable} from "./interfaces/username-available";
 import {BehaviorSubject, tap} from "rxjs";
 import {SignedInResponse} from "./interfaces/signed-in-response";
+import {SignInCredentials} from "./interfaces/sign-in-credentials";
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +45,15 @@ export class AuthenticationService {
       );
   }
 
-  signout(){
+  signout() {
     return this.httpClient
-      .post(`${this.rootUrl}/auth/signout`,{})
-      .pipe(
-        tap(()=>this.signedIn$.next(false))
-      );
+      .post(`${this.rootUrl}/auth/signout`, {})
+      .pipe(tap(() => this.signedIn$.next(false)));
+  }
+
+  signin(credentials: SignInCredentials) {
+    return this.httpClient
+      .post(`${this.rootUrl}/auth/signin`, credentials)
+      .pipe(tap(() => this.signedIn$.next(true)));
   }
 }
