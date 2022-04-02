@@ -4,7 +4,7 @@ import {SignupCredentials} from "./interfaces/signup-credentials";
 import {SignupResponse} from "./interfaces/signup-response";
 import {UsernameAvailable} from "./interfaces/username-available";
 import {BehaviorSubject, tap} from "rxjs";
-import {HttpHeaders} from "@angular/common/http";
+import {SignedInResponse} from "./interfaces/signed-in-response";
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +28,6 @@ export class AuthenticationService {
         username: credentials.username,
         password: credentials.password,
         passwordConfirmation: credentials.passwordConfirmation
-      }, {
-        withCredentials: true
       })
       .pipe(
         tap(() => {
@@ -40,11 +38,9 @@ export class AuthenticationService {
 
   checkAuthentication() {
     return this.httpClient
-      .get(`${this.rootUrl}/auth/signedin`, {
-        withCredentials: true
-      })
+      .get<SignedInResponse>(`${this.rootUrl}/auth/signedin`)
       .pipe(
-        tap(response => console.log(response))
-      )
+        tap(({authenticated}) => this.signedIn$.next(authenticated))
+      );
   }
 }
