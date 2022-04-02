@@ -43,4 +43,12 @@ export class AuthenticationService {
         tap(({authenticated}) => this.signedIn$.next(authenticated))
       );
   }
+
+  signout(){
+    return this.httpClient
+      .post(`${this.rootUrl}/auth/signout`,{})
+      .pipe(
+        tap(()=>this.signedIn$.next(false))
+      );
+  }
 }
