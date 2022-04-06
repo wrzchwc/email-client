@@ -12,7 +12,7 @@ import {SignInCredentials} from "./interfaces/sign-in-credentials";
 })
 export class AuthenticationService {
   rootUrl = 'https://api.angular-email.com';
-  signedIn$ = new BehaviorSubject(false);
+  signedIn$ = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) {
   }
@@ -30,19 +30,13 @@ export class AuthenticationService {
         password: credentials.password,
         passwordConfirmation: credentials.passwordConfirmation
       })
-      .pipe(
-        tap(() => {
-          this.signedIn$.next(true);
-        })
-      )
+      .pipe(tap(() => this.signedIn$.next(true)));
   }
 
   checkAuthentication() {
     return this.httpClient
       .get<SignedInResponse>(`${this.rootUrl}/auth/signedin`)
-      .pipe(
-        tap(({authenticated}) => this.signedIn$.next(authenticated))
-      );
+      .pipe(tap(({authenticated}) => this.signedIn$.next(authenticated)));
   }
 
   signout() {
