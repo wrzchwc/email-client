@@ -11,7 +11,7 @@ import {SignInCredentials} from "./interfaces/sign-in-credentials";
   providedIn: 'root'
 })
 export class AuthenticationService {
-  rootUrl = 'https://api.angular-email.com';
+  rootUrl = 'https://api.angular-email.com/auth';
   signedIn$ = new BehaviorSubject<any>(null);
 
   constructor(private httpClient: HttpClient) {
@@ -25,7 +25,7 @@ export class AuthenticationService {
 
   signup(credentials: SignupCredentials) {
     return this.httpClient
-      .post<SignupResponse>(`${this.rootUrl}/auth/signup`, {
+      .post<SignupResponse>(`${this.rootUrl}/signup`, {
         username: credentials.username,
         password: credentials.password,
         passwordConfirmation: credentials.passwordConfirmation
@@ -35,19 +35,19 @@ export class AuthenticationService {
 
   checkAuthentication() {
     return this.httpClient
-      .get<SignedInResponse>(`${this.rootUrl}/auth/signedin`)
+      .get<SignedInResponse>(`${this.rootUrl}/signedin`)
       .pipe(tap(({authenticated}) => this.signedIn$.next(authenticated)));
   }
 
   signout() {
     return this.httpClient
-      .post(`${this.rootUrl}/auth/signout`, {})
+      .post(`${this.rootUrl}/signout`, {})
       .pipe(tap(() => this.signedIn$.next(false)));
   }
 
   signin(credentials: SignInCredentials) {
     return this.httpClient
-      .post(`${this.rootUrl}/auth/signin`, credentials)
+      .post(`${this.rootUrl}/signin`, credentials)
       .pipe(tap(() => this.signedIn$.next(true)));
   }
 }
