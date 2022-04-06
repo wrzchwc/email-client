@@ -31,7 +31,15 @@ export class SigninComponent {
     if (this.signInForm.invalid) return;
     this.authenticationService
       .signin(this.signInForm.value)
-      .subscribe(()=>{});
+      .subscribe({
+        next: () => {
+        },
+        error: ({error})=>{
+          if (error.username || error.password){
+            this.signInForm.setErrors({credentials: true});
+          }
+        }
+      });
   }
 
 }

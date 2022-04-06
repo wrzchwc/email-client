@@ -2,5 +2,10 @@
 <form class="ui form" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
   <app-input inputType="text" label="username" [control]="signInForm.controls['username']"></app-input>
   <app-input inputType="password" label="password" [control]="signInForm.controls['password']"></app-input>
-  <button class="ui submit button primary">Sign in</button>
+  <div *ngIf="signInForm.errors" class="ui red basic label">
+    <p *ngIf="signInForm.errors['credentials']">Invalid username or password!</p>
+  </div>
+  <div>
+    <button class="ui submit button primary">Sign in</button>
+  </div>
 </form>
