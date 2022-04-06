@@ -5,6 +5,7 @@ import {Validators} from "@angular/forms";
 import {MatchPassword} from "../validators/match-password";
 import {UniqueUsername} from "../validators/unique-username";
 import {AuthenticationService} from "../authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -35,10 +36,10 @@ export class SignupComponent {
     validators: [this.matchPassword.validate]
   })
 
-  constructor(
-    private matchPassword: MatchPassword,
-    private uniqueUsername: UniqueUsername,
-    private authenticationService: AuthenticationService
+  constructor(private matchPassword: MatchPassword,
+              private uniqueUsername: UniqueUsername,
+              private authenticationService: AuthenticationService,
+              private router: Router
   ) {
   }
 
@@ -47,7 +48,7 @@ export class SignupComponent {
     this.authenticationService.signup(this.authenticationForm.value)
       .subscribe({
         next: (response) => {
-          //Navigation
+          this.router.navigateByUrl('/inbox')
         },
         error: (err) => {
           this.authenticationForm.setErrors(!err.status ? {noConnection: true} : {unknownError: true})
