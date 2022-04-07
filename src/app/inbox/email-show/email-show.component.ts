@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Email} from "../interfaces/email";
 
 @Component({
   selector: 'app-email-show',
   templateUrl: './email-show.component.html',
   styleUrls: ['./email-show.component.css']
 })
-export class EmailShowComponent implements OnInit {
+export class EmailShowComponent implements OnInit{
+  email: Email;
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute
+  ) {
+    this.email = activatedRoute.snapshot.data['email'];
+    this.activatedRoute.data.subscribe(({email}) => {
+      this.email = email;
+    })
+  }
 
   ngOnInit(): void {
   }
-
 }
