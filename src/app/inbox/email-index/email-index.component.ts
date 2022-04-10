@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EmailService} from "../email.service";
+import {EmailService} from "../services/email.service";
 import {EmailSummary} from "../interfaces/email-summary";
 
 @Component({
