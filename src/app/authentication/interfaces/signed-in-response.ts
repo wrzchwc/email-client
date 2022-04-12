@@ -1,3 +1,4 @@
 export interface SignedInResponse {
-  authenticated: boolean
+  authenticated: boolean,
+  username:string
 }

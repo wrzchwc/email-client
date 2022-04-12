@@ -6,6 +6,7 @@ import {UsernameAvailable} from "./interfaces/username-available";
 import {BehaviorSubject, tap} from "rxjs";
 import {SignedInResponse} from "./interfaces/signed-in-response";
 import {SignInCredentials} from "./interfaces/sign-in-credentials";
+import {SigninResponse} from "./interfaces/signin-response";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,13 @@ import {SignInCredentials} from "./interfaces/sign-in-credentials";
 export class AuthenticationService {
   rootUrl = 'https://api.angular-email.com/auth';
   signedIn$ = new BehaviorSubject<any>(null);
+  username = '';
 
   constructor(private httpClient: HttpClient) {
   }
 
   usernameAvailable(username: string) {
-    return this.httpClient.post<UsernameAvailable>(`${this.rootUrl}/auth/username`, {
+    return this.httpClient.post<UsernameAvailable>(`${this.rootUrl}/username`, {
       username: username
     })
   }
@@ -30,13 +32,19 @@ export class AuthenticationService {
         password: credentials.password,
         passwordConfirmation: credentials.passwordConfirmation
       })
-      .pipe(tap(() => this.signedIn$.next(true)));
+      .pipe(tap(({username}) => {
+        this.signedIn$.next(true);
+        this.username = username;
+      }));
   }
 
   checkAuthentication() {
     return this.httpClient
       .get<SignedInResponse>(`${this.rootUrl}/signedin`)
-      .pipe(tap(({authenticated}) => this.signedIn$.next(authenticated)));
+      .pipe(tap(({authenticated, username}) => {
+        this.signedIn$.next(authenticated);
+        this.username = username;
+      }));
   }
 
   signout() {
@@ -47,7 +55,10 @@ export class AuthenticationService {
 
   signin(credentials: SignInCredentials) {
     return this.httpClient
-      .post(`${this.rootUrl}/signin`, credentials)
-      .pipe(tap(() => this.signedIn$.next(true)));
+      .post<SigninResponse>(`${this.rootUrl}/signin`, credentials)
+      .pipe(tap(({username}) => {
+        this.signedIn$.next(true);
+        this.username = username;
+      }));
   }
 }
