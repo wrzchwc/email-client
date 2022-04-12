@@ -2,6 +2,6 @@
   <app-input label="to" inputType="email" [control]="emailForm.controls['to']"></app-input>
   <app-input label="from" inputType="email" [control]="emailForm.controls['from']"></app-input>
   <app-input label="subject" inputType="text" [control]="emailForm.controls['subject']"></app-input>
-  <app-input label="content" inputType="text" [control]="emailForm.controls['text']"></app-input>
+  <app-input label="content" inputType="text" controlType="textarea" [control]="emailForm.controls['text']"></app-input>
   <button class="ui button primary">Send</button>
 </form>
