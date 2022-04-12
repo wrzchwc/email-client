@@ -19,4 +19,8 @@ export class EmailService {
   getEmail(id: string) {
     return this.httpClient.get<Email>(`${this.rootUrl}/${id}`)
   }
+
+  sendEmail(email: Email) {
+    return this.httpClient.post(`${this.rootUrl}`, email)
+  }
 }
